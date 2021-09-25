@@ -48,11 +48,15 @@
   ];
 </script>
 
-<style>
+<style global lang="postcss">
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
   main {
     font-family: Poppins, sans-serif;
   }
+  @tailwind base;
+  @tailwind components;
+  @tailwind screens;
+  @tailwind utilities;
 </style>
 
 <main class="bg-gray-200 w-screen min-h-screen dark:bg-gray-800 dark:text-gray-50">
