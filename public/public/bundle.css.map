@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  import Router from \"svelte-spa-router\";\n  import AppHeader from \"./components/AppHeader.svelte\";\n  import NavBar from \"./components/NavBar.svelte\";\n  import { onMount } from \"svelte\";\n  import {\n    HomeIcon,\n    BarChartIcon,\n    SettingsIcon,\n    VideoIcon,\n    LogInIcon,\n    WifiIcon,\n    WifiOffIcon\n  } from \"svelte-feather-icons\";\n  import routes from \"./utils/routes.js\";\n  import {\n    signIn,\n    auth,\n    initFirebaseAuth,\n    signOutUser\n  } from \"./utils/firebase.js\";\n\n  onMount(initFirebaseAuth);\n  let isSignedIn = !!$auth.currentUser;\n  $: isSignedIn = !!$auth.currentUser;\n\n  const navRoutes = [\n    {\n      path: \"#/\",\n      component: HomeIcon,\n      label: \"Home\"\n    },\n    {\n      path: \"#/monitor\",\n      component: BarChartIcon,\n      label: \"Monitor\"\n    },\n    {\n      path: \"#/video\",\n      component: VideoIcon,\n      label: \"Video\"\n    },\n    {\n      path: \"#/settings\",\n      component: SettingsIcon,\n      label: \"Settings\"\n    }\n  ];\n</script>\n\n<style>/* purgecss start ignore */\n\n@import url(\"https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap\");\n\nmain {\n  font-family: Poppins, sans-serif;\n}\n\n/* purgecss end ignore */</style>\n\n<main class=\"bg-gray-200 w-screen min-h-screen dark:bg-gray-800 dark:text-gray-50\">\n  {#if isSignedIn}\n    <AppHeader appTitle=\"\" appIcon=\"assets/favicon-32x32.png\">\n      <div slot=\"nav\">\n        <NavBar {navRoutes} />\n      </div>\n      <div slot=\"rt\" class=\"grid items-center text-gray-600\">\n        <WifiIcon size=\"1.5x\"/>\n      </div>\n    </AppHeader>\n    <Router {routes} />\n  {:else}\n  <button \n    class=\"px-4 py-2 bg-blue-500 text-white rounded sh-lg m-auto flex\" \n    on:click={signIn}>\n    <LogInIcon size='1.5x' class=\"mr-3\"></LogInIcon>\n    Sign In\n    </button>\n  {/if}\n</main>"
+  ],
+  "names": [],
+  "mappings": "AAoDA,QAAQ,IAAI,wGAAwG,CAAC,CAAC,AAEtH,IAAI,cAAC,CAAC,AACJ,WAAW,CAAE,OAAO,CAAC,CAAC,UAAU,AAClC,CAAC"
+}

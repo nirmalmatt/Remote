@@ -5,6 +5,7 @@ import svelte from "rollup-plugin-svelte";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
+import sveltePreprocess from 'svelte-preprocess';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -24,7 +25,16 @@ export default {
       // a separate file — better for performance
       css: css => {
         css.write("public/bundle.css");
-      }
+      },
+     preprocess: sveltePreprocess({
+	     sourceMap: !production,
+  postcss: {
+    plugins: [
+     require("tailwindcss"), 
+     require("autoprefixer"),
+    ],
+  },
+     })
     }),
 
     // If you have external dependencies installed from
@@ -37,6 +47,5 @@ export default {
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
-    production && terser()
-  ]
-};
+    production && terser(),
+  ]}
